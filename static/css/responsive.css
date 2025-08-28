@@ -1,0 +1,534 @@
+/* =========================================
+   SISTEMA HOSPITALAR - CSS RESPONSIVO
+   Design Mobile-First para todas as telas
+   ========================================= */
+
+/* ====================================
+   BREAKPOINTS PADRÃO
+   ==================================== */
+/*
+  Mobile:      até 767px
+  Tablet:      768px - 1023px  
+  Desktop:     1024px+
+  Large:       1440px+
+*/
+
+/* ====================================
+   RESET E CONFIGURAÇÕES BASE
+   ==================================== */
+* {
+    box-sizing: border-box;
+}
+
+/* Viewport meta configurado no HTML */
+html {
+    font-size: 16px; /* Base para rem */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* ====================================
+   CONTAINER RESPONSIVO
+   ==================================== */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 2rem;
+    }
+}
+
+/* ====================================
+   HEADER RESPONSIVO
+   ==================================== */
+.login-header {
+    padding: 0.75rem 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Mobile Header */
+@media (max-width: 767px) {
+    .login-header {
+        padding: 0.5rem 0;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .logo-section {
+        justify-content: center;
+    }
+    
+    .medical-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .logo-text h1 {
+        font-size: 1.25rem; /* 20px */
+    }
+    
+    .logo-text span {
+        font-size: 0.75rem; /* 12px */
+    }
+    
+    .header-info {
+        display: none; /* Oculta informações extras no mobile */
+    }
+}
+
+/* Tablet Header */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .logo-text h1 {
+        font-size: 1.375rem; /* 22px */
+    }
+    
+    .header-info {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+
+/* ====================================
+   CARDS E CONTAINERS RESPONSIVOS
+   ==================================== */
+.card, .login-container {
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Cards */
+@media (max-width: 767px) {
+    .card, .login-container {
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+}
+
+/* ====================================
+   FORMULÁRIOS RESPONSIVOS
+   ==================================== */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Forms */
+@media (max-width: 767px) {
+    .form-control {
+        padding: 0.875rem; /* Maior para touch */
+        font-size: 1rem; /* Evita zoom no iOS */
+        border-radius: 8px;
+    }
+    
+    /* Botões maiores para touch */
+    .btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        min-height: 44px; /* Mínimo recomendado */
+    }
+}
+
+/* Tablet Forms */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .form-control {
+        padding: 0.8rem;
+    }
+}
+
+/* ====================================
+   GRID RESPONSIVO
+   ==================================== */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -0.5rem;
+}
+
+.col {
+    flex: 1;
+    padding: 0 0.5rem;
+}
+
+/* Mobile Grid - Stack verticalmente */
+@media (max-width: 767px) {
+    .row {
+        flex-direction: column;
+        margin: 0;
+    }
+    
+    .col {
+        padding: 0.25rem 0;
+    }
+    
+    .col-md-6,
+    .col-lg-4,
+    .col-lg-6 {
+        width: 100%;
+        flex: none;
+    }
+}
+
+/* Tablet Grid */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .col-md-6 {
+        width: 50%;
+        flex: none;
+    }
+    
+    .col-lg-4 {
+        width: 50%; /* 2 colunas no tablet */
+        flex: none;
+    }
+}
+
+/* Desktop Grid */
+@media (min-width: 1024px) {
+    .col-lg-4 {
+        width: 33.333%;
+        flex: none;
+    }
+    
+    .col-lg-6 {
+        width: 50%;
+        flex: none;
+    }
+}
+
+/* ====================================
+   TABELAS RESPONSIVAS
+   ==================================== */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    width: 100%;
+    min-width: 600px; /* Mínimo para manter legibilidade */
+}
+
+/* Mobile Tables */
+@media (max-width: 767px) {
+    .table-responsive {
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .table {
+        font-size: 0.875rem;
+        min-width: 500px;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.5rem;
+        white-space: nowrap;
+    }
+}
+
+/* ====================================
+   NAVEGAÇÃO RESPONSIVA
+   ==================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mobile Navigation */
+@media (max-width: 767px) {
+    .nav-menu {
+        display: none; /* Oculta menu padrão */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .nav-menu li {
+        margin: 1rem 0;
+    }
+    
+    .nav-menu a {
+        color: white;
+        font-size: 1.25rem;
+        text-decoration: none;
+    }
+    
+    /* Botão hambúrguer */
+    .mobile-menu-btn {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+/* Desktop Navigation */
+@media (min-width: 768px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+}
+
+/* ====================================
+   BOTÕES RESPONSIVOS
+   ==================================== */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: fit-content;
+}
+
+/* Mobile Buttons */
+@media (max-width: 767px) {
+    .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 8px;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+    }
+}
+
+/* ====================================
+   MODAIS RESPONSIVOS
+   ==================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Mobile Modals */
+@media (max-width: 767px) {
+    .modal {
+        align-items: flex-start;
+        padding: 1rem 0;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 1rem auto;
+        padding: 1.5rem;
+        border-radius: 8px;
+        max-height: calc(100vh - 2rem);
+    }
+}
+
+/* ====================================
+   ALERTAS E NOTIFICAÇÕES RESPONSIVAS
+   ==================================== */
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+/* Mobile Alerts */
+@media (max-width: 767px) {
+    .alert {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+        border-radius: 6px;
+    }
+}
+
+/* ====================================
+   UTILITÁRIOS RESPONSIVOS
+   ==================================== */
+
+/* Visibility Classes */
+.mobile-only {
+    display: block;
+}
+
+.tablet-only,
+.desktop-only {
+    display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .mobile-only {
+        display: none;
+    }
+    .tablet-only {
+        display: block;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mobile-only,
+    .tablet-only {
+        display: none;
+    }
+    .desktop-only {
+        display: block;
+    }
+}
+
+/* Text Alignment */
+@media (max-width: 767px) {
+    .text-center-mobile {
+        text-align: center;
+    }
+}
+
+/* Spacing */
+@media (max-width: 767px) {
+    .mb-mobile-1 { margin-bottom: 0.5rem; }
+    .mb-mobile-2 { margin-bottom: 1rem; }
+    .mt-mobile-1 { margin-top: 0.5rem; }
+    .mt-mobile-2 { margin-top: 1rem; }
+}
+
+/* ====================================
+   PERFORMANCE E OTIMIZAÇÕES
+   ==================================== */
+
+/* Touch Improvements */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover {
+        transform: none;
+    }
+    
+    .card:hover {
+        transform: none;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo-text h1 {
+        font-weight: 600; /* Melhor renderização em high DPI */
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ====================================
+   DARK MODE SUPPORT (Futuro)
+   ==================================== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-light: #1a1a1a;
+        --background-white: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b3b3b3;
+        --border-light: #404040;
+    }
+}
