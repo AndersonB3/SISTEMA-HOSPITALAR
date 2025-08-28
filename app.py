@@ -1249,13 +1249,29 @@ def debug_movimentacoes_paciente(paciente_id):
 # INICIALIZAÇÃO DA APLICAÇÃO
 # ================================
 
+def inicializar_banco():
+    """Inicializa o banco de dados e cria usuário admin"""
+    try:
+        with app.app_context():
+            # Criar tabelas do banco de dados se não existirem
+            app.logger.info("Criando tabelas do banco de dados...")
+            db.create_all()
+            app.logger.info("Tabelas criadas com sucesso!")
+            
+            # Criar usuário admin padrão se não existir
+            app.logger.info("Verificando usuário admin...")
+            criar_admin_padrao()
+            app.logger.info("Inicialização do banco concluída!")
+            
+    except Exception as e:
+        app.logger.error(f"Erro na inicialização do banco: {str(e)}")
+        import traceback
+        app.logger.error(traceback.format_exc())
+
+# Inicializar banco sempre que o módulo for carregado
+inicializar_banco()
+
 if __name__ == '__main__':
-    with app.app_context():
-        # Criar tabelas do banco de dados se não existirem
-        db.create_all()
-        # Criar usuário admin padrão se não existir
-        criar_admin_padrao()
-    
     # Configuração para produção e desenvolvimento
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV') == 'development'
