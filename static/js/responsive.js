@@ -269,6 +269,68 @@ function handleResize() {
 }
 
 /**
+ * Ajusta formulários para modo retrato
+ */
+function adjustFormsForPortrait() {
+    if (!DeviceUtils.isMobile() || !window.matchMedia('(orientation: portrait)').matches) {
+        return;
+    }
+    
+    // Ajusta inputs para modo retrato
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+        if (input.type === 'text' || input.type === 'email' || input.type === 'tel') {
+            input.style.fontSize = '16px'; // Previne zoom no iOS
+            input.style.minHeight = '44px'; // Touch target mínimo
+        }
+    });
+    
+    // Ajusta botões para serem mais acessíveis no modo retrato
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+        if (!btn.style.minHeight) {
+            btn.style.minHeight = '44px';
+        }
+    });
+    
+    // Ajusta modais para ocupar tela toda no modo retrato
+    const modals = document.querySelectorAll('.modal-content');
+    modals.forEach(modal => {
+        modal.style.margin = '0';
+        modal.style.height = '100vh';
+        modal.style.borderRadius = '0';
+    });
+}
+
+// Detecta mudança de orientação com melhorias
+window.addEventListener('orientationchange', function() {
+    setTimeout(function() {
+        adjustForOrientation();
+        adjustFormsForPortrait();
+        // Force reflow para aplicar CSS correto
+        document.body.style.display = 'none';
+        document.body.offsetHeight; // trigger reflow
+        document.body.style.display = '';
+    }, 100);
+});
+
+// Função inicial para orientação
+function adjustForOrientation() {
+    const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    
+    if (isMobile && isPortrait) {
+        // Modo retrato - otimizações específicas
+        document.body.classList.add('mobile-portrait');
+        adjustTablesForPortrait();
+        adjustModalsForPortrait();
+        adjustFormsForPortrait();
+    } else {
+        document.body.classList.remove('mobile-portrait');
+    }
+}
+
+/**
  * Utilitários de detecção de dispositivo
  */
 const DeviceUtils = {

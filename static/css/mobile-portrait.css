@@ -1,0 +1,618 @@
+/* =========================================
+   MODO RETRATO (VERTICAL) - OTIMIZAÇÕES
+   Melhorias específicas para celular na vertical
+   ========================================= */
+
+/* ====================================
+   MODO RETRATO - CONFIGURAÇÕES BASE
+   ==================================== */
+
+/* Portrait Mode - Celular Vertical */
+@media (max-width: 767px) and (orientation: portrait) {
+    
+    /* Body otimizado para vertical */
+    body {
+        font-size: 14px;
+        line-height: 1.5;
+        overflow-x: hidden;
+    }
+    
+    /* Container principal */
+    .container {
+        padding: 0 0.5rem;
+        max-width: 100%;
+    }
+    
+    /* ====================================
+       HEADER MODO RETRATO
+       ==================================== */
+    
+    .login-header,
+    .modern-header,
+    .main-header {
+        padding: 0.75rem 0;
+        min-height: auto;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0 1rem;
+    }
+    
+    .logo-section {
+        order: 1;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .medical-icon,
+    .logo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+    
+    .logo-text h1 {
+        font-size: 1.1rem !important;
+        margin: 0;
+        line-height: 1.2;
+    }
+    
+    .logo-text span {
+        font-size: 0.7rem;
+        opacity: 0.8;
+    }
+    
+    /* Header actions compactas */
+    .header-actions {
+        order: 2;
+        width: 100%;
+        padding: 0.5rem 0;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* Search container menor */
+    .search-container {
+        flex: 1;
+        max-width: calc(100% - 100px);
+        margin-right: 0.5rem;
+    }
+    
+    .search-input {
+        padding: 0.75rem;
+        font-size: 14px;
+        border-radius: 6px;
+        height: 40px;
+    }
+    
+    /* Botões de ação menores */
+    .notification-btn,
+    .mobile-menu-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+    
+    /* ====================================
+       MÓDULOS GRID RETRATO
+       ==================================== */
+    
+    .modules-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 1rem 0.5rem;
+    }
+    
+    .module-card {
+        padding: 1.25rem 1rem;
+        border-radius: 10px;
+        min-height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .module-icon {
+        font-size: 1.75rem !important;
+        margin-bottom: 0 !important;
+        flex-shrink: 0;
+        width: 50px;
+        text-align: center;
+    }
+    
+    .module-content {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .module-title {
+        font-size: 1rem !important;
+        margin-bottom: 0.25rem !important;
+        line-height: 1.3;
+    }
+    
+    .module-description {
+        font-size: 0.8rem;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: #666;
+    }
+    
+    .module-stats {
+        margin-top: 0.5rem;
+        gap: 0.25rem;
+        justify-content: flex-start;
+    }
+    
+    .stat-item {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+    }
+    
+    /* ====================================
+       FORMULÁRIOS RETRATO
+       ==================================== */
+    
+    .form-container {
+        padding: 1rem 0.75rem;
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .form-group {
+        margin-bottom: 0.75rem;
+    }
+    
+    .form-group label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        display: block;
+        color: #374151;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+    
+    /* Selects customizados */
+    select.form-control {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.75rem center;
+        background-repeat: no-repeat;
+        background-size: 1.25em 1.25em;
+        padding-right: 2.5rem;
+    }
+    
+    /* Textareas */
+    textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    /* ====================================
+       BOTÕES RETRATO
+       ==================================== */
+    
+    .btn {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .btn-toggle {
+        padding: 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .button-container {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    /* ====================================
+       TABELAS RETRATO
+       ==================================== */
+    
+    .table-responsive {
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+    
+    .patients-table {
+        font-size: 0.8rem;
+        min-width: 100%;
+    }
+    
+    .patients-table th,
+    .patients-table td {
+        padding: 0.5rem 0.25rem;
+        text-align: left;
+        vertical-align: middle;
+    }
+    
+    .patients-table th {
+        font-size: 0.7rem;
+        background: #f8fafc;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    
+    /* Oculta colunas menos importantes */
+    .mobile-hidden-portrait {
+        display: none !important;
+    }
+    
+    /* Actions em coluna */
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        min-width: 80px;
+    }
+    
+    .action-buttons .btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.7rem;
+        min-height: 32px;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* ====================================
+       CARDS DE PACIENTE RETRATO
+       ==================================== */
+    
+    .patient-card {
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    
+    .patient-card-header {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .patient-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+        line-height: 1.3;
+    }
+    
+    .patient-info p {
+        font-size: 0.8rem;
+        color: #6b7280;
+    }
+    
+    .patient-details {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .detail-label {
+        font-size: 0.7rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .detail-value {
+        font-size: 0.8rem;
+    }
+    
+    .patient-actions {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .patient-actions .btn {
+        flex: 1;
+        min-width: calc(50% - 0.25rem);
+        font-size: 0.8rem;
+        padding: 0.6rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* ====================================
+       MODAL RETRATO
+       ==================================== */
+    
+    .modal-content {
+        margin: 0;
+        padding: 1rem;
+        border-radius: 0;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-header {
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 100;
+        margin: -1rem -1rem 0.75rem -1rem;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.1rem;
+        margin: 0;
+        line-height: 1.3;
+    }
+    
+    .close {
+        position: absolute;
+        top: 0.75rem;
+        right: 1rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1.2rem;
+        border-radius: 50%;
+        background: #f3f4f6;
+    }
+    
+    .modal-footer {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        margin: 0.75rem -1rem -1rem -1rem;
+        padding: 0.75rem 1rem;
+        border-top: 1px solid #e5e7eb;
+    }
+    
+    /* ====================================
+       NAVEGAÇÃO RETRATO
+       ==================================== */
+    
+    .nav-menu.active {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 2rem 1rem;
+        gap: 0.5rem;
+    }
+    
+    .nav-menu.active li {
+        margin: 0;
+        width: 100%;
+    }
+    
+    .nav-menu.active a {
+        display: block;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* ====================================
+       FILTROS RETRATO
+       ==================================== */
+    
+    .filters-section {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+    
+    .filter-btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.85rem;
+        border-radius: 6px;
+        margin-bottom: 0;
+    }
+    
+    /* ====================================
+       SEARCH E PESQUISA RETRATO
+       ==================================== */
+    
+    .search-filters-container {
+        padding: 1rem 0.75rem;
+        margin-bottom: 0.75rem;
+        border-radius: 8px;
+    }
+    
+    .search-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .search-btn {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* ====================================
+       FOOTER RETRATO
+       ==================================== */
+    
+    .modern-footer {
+        margin-top: 2rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.5rem 0.75rem;
+        text-align: center;
+    }
+    
+    .footer-section h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-section ul li {
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+        padding: 1rem 0.75rem;
+    }
+    
+    /* ====================================
+       UTILITÁRIOS RETRATO
+       ==================================== */
+    
+    /* Espaçamentos reduzidos */
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 0.75rem; }
+    .mb-3 { margin-bottom: 1rem; }
+    
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 0.75rem; }
+    .mt-3 { margin-top: 1rem; }
+    
+    .p-1 { padding: 0.5rem; }
+    .p-2 { padding: 0.75rem; }
+    .p-3 { padding: 1rem; }
+    
+    /* Text sizes responsivos */
+    .text-lg { font-size: 1rem; }
+    .text-xl { font-size: 1.1rem; }
+    .text-2xl { font-size: 1.2rem; }
+    
+    /* Status indicators menores */
+    .badge,
+    .status-indicator {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    /* Loading spinner menor */
+    .loading-spinner {
+        width: 28px;
+        height: 28px;
+        border-width: 3px;
+    }
+    
+    /* ====================================
+       ANIMAÇÕES OTIMIZADAS
+       ==================================== */
+    
+    /* Reduz animações em mobile portrait */
+    .module-card,
+    .patient-card,
+    .btn {
+        transition: all 0.2s ease;
+    }
+    
+    .module-card:active,
+    .patient-card:active,
+    .btn:active {
+        transform: scale(0.98);
+    }
+    
+    /* ====================================
+       SCROLL OTIMIZADO
+       ==================================== */
+    
+    /* Scroll suave para elementos */
+    .modal-content,
+    .table-responsive,
+    .nav-menu.active {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    /* Scrollbar fina em webkit */
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 2px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+}
+
+/* ====================================
+   SAFE AREAS (iPhone com notch)
+   ==================================== */
+
+@media (max-width: 767px) and (orientation: portrait) {
+    /* Safe area para iPhones com notch */
+    .login-header,
+    .modern-header,
+    .main-header {
+        padding-top: max(0.75rem, env(safe-area-inset-top));
+    }
+    
+    .modern-footer,
+    .modal-footer {
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    }
+    
+    .nav-menu.active {
+        padding-top: max(2rem, env(safe-area-inset-top) + 1rem);
+        padding-bottom: max(2rem, env(safe-area-inset-bottom) + 1rem);
+    }
+}
