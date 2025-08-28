@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initTouchOptimizations();
     initResponsiveTables();
     initMobileModals();
+    initPortraitModeFeatures(); // Nova função para modo portrait
 });
 
 /**
@@ -222,6 +223,284 @@ function initMobileModals() {
 }
 
 /**
+ * Funcionalidades específicas para modo portrait
+ */
+function initPortraitModeFeatures() {
+    // Detecta orientação portrait
+    function isPortraitMode() {
+        return window.innerHeight > window.innerWidth && window.innerWidth <= 767;
+    }
+    
+    // Aplica ajustes para portrait
+    function applyPortraitOptimizations() {
+        const isPortrait = isPortraitMode();
+        document.body.classList.toggle('portrait-mode', isPortrait);
+        
+        if (isPortrait) {
+            // Ajustes específicos para portrait
+            optimizeFormLayoutPortrait();
+            optimizeTableScrollPortrait();
+            optimizeModalSizePortrait();
+            adjustHeaderForPortrait();
+            handleKeyboardPortrait();
+        }
+    }
+    
+    // Otimiza formulários em portrait
+    function optimizeFormLayoutPortrait() {
+        const forms = document.querySelectorAll('.form-container, .login-card');
+        forms.forEach(form => {
+            // Força layout de coluna única
+            const formRows = form.querySelectorAll('.form-row');
+            formRows.forEach(row => {
+                row.style.gridTemplateColumns = '1fr';
+                row.style.gap = '0.75rem';
+            });
+            
+            // Ajusta botões para largura total
+            const buttons = form.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                if (!btn.classList.contains('btn-toggle')) {
+                    btn.style.width = '100%';
+                    btn.style.marginBottom = '0.5rem';
+                }
+            });
+        });
+    }
+    
+    // Otimiza scroll de tabelas em portrait
+    function optimizeTableScrollPortrait() {
+        const tableContainers = document.querySelectorAll('.table-responsive');
+        tableContainers.forEach(container => {
+            // Adiciona indicador de scroll
+            const scrollIndicator = document.createElement('div');
+            scrollIndicator.className = 'scroll-indicator portrait-only';
+            scrollIndicator.innerHTML = '<i class="fas fa-arrows-alt-h"></i> Deslize para ver mais';
+            scrollIndicator.style.cssText = `
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                background: rgba(59, 130, 246, 0.9);
+                color: white;
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+                font-size: 0.7rem;
+                z-index: 10;
+                opacity: 0.8;
+            `;
+            
+            if (!container.querySelector('.scroll-indicator')) {
+                container.style.position = 'relative';
+                container.appendChild(scrollIndicator);
+            }
+            
+            // Oculta colunas menos importantes em portrait
+            const table = container.querySelector('table');
+            if (table) {
+                const headers = table.querySelectorAll('th');
+                const cells = table.querySelectorAll('td');
+                
+                // Define quais colunas ocultar (últimas colunas geralmente)
+                const columnsToHide = Math.max(0, headers.length - 3);
+                
+                headers.forEach((header, index) => {
+                    if (index >= headers.length - columnsToHide) {
+                        header.classList.add('mobile-portrait-hidden');
+                    }
+                });
+                
+                cells.forEach((cell, index) => {
+                    const columnIndex = index % headers.length;
+                    if (columnIndex >= headers.length - columnsToHide) {
+                        cell.classList.add('mobile-portrait-hidden');
+                    }
+                });
+            }
+        });
+    }
+    
+    // Otimiza modais em portrait
+    function optimizeModalSizePortrait() {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                // Força modal fullscreen em portrait
+                modalContent.style.width = '100%';
+                modalContent.style.height = '100vh';
+                modalContent.style.maxHeight = '100vh';
+                modalContent.style.margin = '0';
+                modalContent.style.borderRadius = '0';
+                modalContent.style.display = 'flex';
+                modalContent.style.flexDirection = 'column';
+                
+                // Ajusta body do modal para scroll
+                const modalBody = modal.querySelector('.modal-body');
+                if (modalBody) {
+                    modalBody.style.flex = '1';
+                    modalBody.style.overflowY = 'auto';
+                    modalBody.style.webkitOverflowScrolling = 'touch';
+                }
+            }
+        });
+    }
+    
+    // Ajusta header em portrait
+    function adjustHeaderForPortrait() {
+        const headers = document.querySelectorAll('.login-header, .modern-header, .main-header');
+        headers.forEach(header => {
+            header.style.position = 'sticky';
+            header.style.top = '0';
+            header.style.zIndex = '100';
+            
+            // Compacta elementos do header
+            const headerContent = header.querySelector('.header-content, .header-container');
+            if (headerContent) {
+                headerContent.style.flexDirection = 'column';
+                headerContent.style.gap = '0.5rem';
+                headerContent.style.padding = '0 1rem';
+                headerContent.style.textAlign = 'center';
+            }
+            
+            // Oculta elementos secundários
+            const elementsToHide = header.querySelectorAll('.header-info, .status-indicator, .version, .user-profile');
+            elementsToHide.forEach(el => el.style.display = 'none');
+        });
+    }
+    
+    // Manipula teclado virtual em portrait
+    function handleKeyboardPortrait() {
+        let initialViewportHeight = window.innerHeight;
+        
+        // Detecta quando teclado abre/fecha
+        window.addEventListener('resize', function() {
+            const currentHeight = window.innerHeight;
+            const heightDifference = initialViewportHeight - currentHeight;
+            
+            // Se altura diminuiu significativamente, teclado provavelmente abriu
+            if (heightDifference > 150) {
+                document.body.classList.add('keyboard-open');
+                
+                // Ajusta modais com teclado aberto
+                const activeModal = document.querySelector('.modal.show');
+                if (activeModal) {
+                    const modalContent = activeModal.querySelector('.modal-content');
+                    if (modalContent) {
+                        modalContent.style.height = currentHeight + 'px';
+                    }
+                }
+            } else {
+                document.body.classList.remove('keyboard-open');
+            }
+        });
+        
+        // Scroll para campo focado
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                setTimeout(() => {
+                    if (isPortraitMode()) {
+                        this.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest'
+                        });
+                    }
+                }, 300); // Aguarda teclado aparecer
+            });
+        });
+    }
+    
+    // Monitora mudanças de orientação
+    function handleOrientationChange() {
+        setTimeout(() => {
+            applyPortraitOptimizations();
+            
+            // Força recálculo de layout
+            const elements = document.querySelectorAll('.modal-content, .form-container, .table-responsive');
+            elements.forEach(el => {
+                el.style.display = 'none';
+                el.offsetHeight; // Force reflow
+                el.style.display = '';
+            });
+        }, 100);
+    }
+    
+    // Event listeners
+    window.addEventListener('orientationchange', handleOrientationChange);
+    window.addEventListener('resize', applyPortraitOptimizations);
+    
+    // Aplicação inicial
+    applyPortraitOptimizations();
+    
+    // Adiciona CSS dinâmico para correções específicas
+    addPortraitDynamicCSS();
+}
+
+/**
+ * Adiciona CSS dinâmico específico para portrait
+ */
+function addPortraitDynamicCSS() {
+    const style = document.createElement('style');
+    style.id = 'portrait-dynamic-css';
+    style.textContent = `
+        /* Correções dinâmicas para portrait mode */
+        .portrait-mode .keyboard-open {
+            position: fixed !important;
+            overflow: hidden !important;
+        }
+        
+        .portrait-mode .keyboard-open .modal-content {
+            height: auto !important;
+            max-height: 60vh !important;
+        }
+        
+        .portrait-mode .scroll-indicator {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* Otimizações de toque para portrait */
+        .portrait-mode .btn,
+        .portrait-mode .form-control,
+        .portrait-mode .card {
+            min-height: 44px !important;
+        }
+        
+        .portrait-mode .btn:active,
+        .portrait-mode .card:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+        }
+        
+        /* Melhor contraste em portrait */
+        .portrait-mode .table th {
+            background: #f1f5f9 !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Scroll suave em portrait */
+        .portrait-mode .modal-body,
+        .portrait-mode .table-responsive {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+    `;
+    
+    // Remove estilo anterior se existir
+    const existingStyle = document.getElementById('portrait-dynamic-css');
+    if (existingStyle) {
+        existingStyle.remove();
+    }
+    
+    document.head.appendChild(style);
+}
+
+/**
  * Ajusta viewport na mudança de orientação
  */
 function adjustViewportForOrientation() {
@@ -265,68 +544,6 @@ function handleResize() {
     // Fecha menu mobile se mudou para desktop
     if (currentWidth > 767) {
         closeMobileMenu();
-    }
-}
-
-/**
- * Ajusta formulários para modo retrato
- */
-function adjustFormsForPortrait() {
-    if (!DeviceUtils.isMobile() || !window.matchMedia('(orientation: portrait)').matches) {
-        return;
-    }
-    
-    // Ajusta inputs para modo retrato
-    const inputs = document.querySelectorAll('.form-control');
-    inputs.forEach(input => {
-        if (input.type === 'text' || input.type === 'email' || input.type === 'tel') {
-            input.style.fontSize = '16px'; // Previne zoom no iOS
-            input.style.minHeight = '44px'; // Touch target mínimo
-        }
-    });
-    
-    // Ajusta botões para serem mais acessíveis no modo retrato
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(btn => {
-        if (!btn.style.minHeight) {
-            btn.style.minHeight = '44px';
-        }
-    });
-    
-    // Ajusta modais para ocupar tela toda no modo retrato
-    const modals = document.querySelectorAll('.modal-content');
-    modals.forEach(modal => {
-        modal.style.margin = '0';
-        modal.style.height = '100vh';
-        modal.style.borderRadius = '0';
-    });
-}
-
-// Detecta mudança de orientação com melhorias
-window.addEventListener('orientationchange', function() {
-    setTimeout(function() {
-        adjustForOrientation();
-        adjustFormsForPortrait();
-        // Force reflow para aplicar CSS correto
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // trigger reflow
-        document.body.style.display = '';
-    }, 100);
-});
-
-// Função inicial para orientação
-function adjustForOrientation() {
-    const isPortrait = window.matchMedia('(orientation: portrait)').matches;
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    
-    if (isMobile && isPortrait) {
-        // Modo retrato - otimizações específicas
-        document.body.classList.add('mobile-portrait');
-        adjustTablesForPortrait();
-        adjustModalsForPortrait();
-        adjustFormsForPortrait();
-    } else {
-        document.body.classList.remove('mobile-portrait');
     }
 }
 

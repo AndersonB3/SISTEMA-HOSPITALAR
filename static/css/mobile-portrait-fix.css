@@ -1,0 +1,655 @@
+/* =========================================
+   MOBILE PORTRAIT (VERTICAL) - CORREÇÕES
+   Otimizações específicas para celular vertical
+   ========================================= */
+
+/* ====================================
+   CONFIGURAÇÕES BASE PORTRAIT
+   ==================================== */
+
+/* Força viewport correto em mobile portrait */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    html {
+        font-size: 14px; /* Base menor para aproveitar espaço */
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+    
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
+/* ====================================
+   HEADER OTIMIZADO PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    .login-header,
+    .modern-header,
+    .main-header {
+        padding: 0.5rem 0;
+        min-height: auto;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .header-content,
+    .header-container {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0 1rem;
+        text-align: center;
+    }
+    
+    .logo-section {
+        order: 1;
+        margin-bottom: 0.5rem;
+    }
+    
+    .logo-text h1 {
+        font-size: 1.125rem !important;
+        margin: 0;
+        line-height: 1.2;
+    }
+    
+    .logo-text span {
+        font-size: 0.75rem !important;
+        opacity: 0.8;
+    }
+    
+    .medical-icon,
+    .logo-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+    }
+    
+    /* Oculta elementos secundários no header para economizar espaço */
+    .header-info,
+    .status-indicator,
+    .version {
+        display: none !important;
+    }
+    
+    /* Header actions compacto */
+    .header-actions {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .search-container {
+        max-width: 200px;
+        flex: 1;
+    }
+    
+    .search-input {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 14px !important;
+        border-radius: 6px;
+    }
+    
+    .user-profile {
+        display: none !important;
+    }
+}
+
+/* ====================================
+   NAVEGAÇÃO MOBILE PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    /* Menu hambúrguer otimizado */
+    .mobile-menu-btn {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 16px !important;
+        border-radius: 6px;
+        position: fixed;
+        top: 0.75rem;
+        right: 1rem;
+        z-index: 1001;
+        background: rgba(0, 0, 0, 0.8) !important;
+        color: white !important;
+        border: none;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Menu fullscreen para portrait */
+    .nav-menu.active,
+    .header-actions.active,
+    .module-nav.active {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(37, 99, 235, 0.95) !important;
+        backdrop-filter: blur(20px);
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+        z-index: 1000 !important;
+        padding: 2rem 1rem;
+        box-sizing: border-box;
+    }
+    
+    .nav-menu.active a,
+    .header-actions.active a,
+    .module-nav.active a {
+        color: white !important;
+        font-size: 1.25rem !important;
+        text-decoration: none !important;
+        padding: 1rem 2rem !important;
+        border-radius: 8px !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(10px);
+        min-width: 200px !important;
+        text-align: center !important;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-menu.active a:hover,
+    .header-actions.active a:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        transform: scale(1.05);
+    }
+}
+
+/* ====================================
+   CARDS E MÓDULOS PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    .modules-grid,
+    .cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+        padding: 0.75rem !important;
+        margin: 0;
+    }
+    
+    .module-card,
+    .card {
+        margin: 0 !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        min-height: 100px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .module-icon {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .module-title {
+        font-size: 1rem !important;
+        margin-bottom: 0.5rem !important;
+        line-height: 1.3;
+    }
+    
+    .module-description {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+    
+    .module-stats {
+        margin-top: 0.75rem !important;
+        gap: 0.25rem !important;
+    }
+    
+    .stat-item {
+        font-size: 0.65rem !important;
+        padding: 0.25rem 0.5rem !important;
+        border-radius: 4px !important;
+    }
+}
+
+/* ====================================
+   FORMULÁRIOS PORTRAIT OTIMIZADOS
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    .form-container,
+    .login-card {
+        margin: 0.5rem !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        width: calc(100% - 1rem) !important;
+        box-sizing: border-box;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .form-group {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .form-group label {
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.375rem !important;
+        display: block;
+        color: #374151;
+    }
+    
+    .form-control {
+        width: 100% !important;
+        padding: 0.875rem !important;
+        font-size: 16px !important; /* Previne zoom iOS */
+        border: 1px solid #d1d5db !important;
+        border-radius: 6px !important;
+        box-sizing: border-box !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+    
+    .form-control:focus {
+        outline: none !important;
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+    }
+    
+    /* Selects otimizados */
+    select.form-control {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+        background-position: right 0.75rem center !important;
+        background-repeat: no-repeat !important;
+        background-size: 16px 12px !important;
+        padding-right: 2.5rem !important;
+    }
+    
+    /* Textareas otimizadas */
+    textarea.form-control {
+        min-height: 80px !important;
+        resize: vertical !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Botões otimizados para portrait */
+    .btn {
+        width: 100% !important;
+        padding: 0.875rem 1rem !important;
+        font-size: 0.9rem !important;
+        border-radius: 6px !important;
+        margin-bottom: 0.5rem !important;
+        min-height: 44px !important; /* Apple guidelines */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+        font-weight: 600 !important;
+    }
+    
+    .btn-group {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+    
+    .btn-toggle {
+        margin: 0 !important;
+        min-width: auto !important;
+    }
+}
+
+/* ====================================
+   TABELAS RESPONSIVAS PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    .table-responsive {
+        border-radius: 6px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .patients-table,
+    .table {
+        font-size: 0.75rem !important;
+        min-width: 400px !important; /* Mínimo para scroll horizontal */
+    }
+    
+    .patients-table th,
+    .patients-table td,
+    .table th,
+    .table td {
+        padding: 0.5rem 0.375rem !important;
+        vertical-align: middle !important;
+        white-space: nowrap !important;
+    }
+    
+    .patients-table th,
+    .table th {
+        font-size: 0.7rem !important;
+        background: #f8fafc !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 10 !important;
+    }
+    
+    /* Oculta colunas menos importantes em portrait */
+    .mobile-portrait-hidden {
+        display: none !important;
+    }
+    
+    /* Botões de ação compactos */
+    .action-buttons {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.25rem !important;
+        min-width: 80px !important;
+    }
+    
+    .action-buttons .btn {
+        padding: 0.375rem 0.5rem !important;
+        font-size: 0.7rem !important;
+        min-width: auto !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}
+
+/* ====================================
+   MODAIS PORTRAIT OTIMIZADOS
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    .modal {
+        padding: 0 !important;
+    }
+    
+    .modal-content {
+        width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+    
+    .modal-header {
+        flex-shrink: 0 !important;
+        padding: 1rem !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        background: white !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 10 !important;
+    }
+    
+    .modal-header h2,
+    .modal-header h3 {
+        font-size: 1.125rem !important;
+        margin: 0 !important;
+        padding-right: 3rem !important;
+    }
+    
+    .close {
+        position: absolute !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        background: #f3f4f6 !important;
+        border: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.25rem !important;
+        color: #6b7280 !important;
+        cursor: pointer !important;
+    }
+    
+    .modal-body {
+        flex: 1 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 1rem !important;
+    }
+    
+    .modal-footer {
+        flex-shrink: 0 !important;
+        padding: 1rem !important;
+        border-top: 1px solid #e5e7eb !important;
+        background: white !important;
+        position: sticky !important;
+        bottom: 0 !important;
+    }
+    
+    .modal-footer .btn {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .modal-footer .btn:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+/* ====================================
+   PESQUISA E FILTROS PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    .search-filters-container {
+        margin: 0.5rem !important;
+        padding: 0.75rem !important;
+        border-radius: 6px !important;
+    }
+    
+    .search-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+    }
+    
+    .search-input {
+        padding: 0.75rem !important;
+        font-size: 16px !important;
+        border-radius: 6px !important;
+    }
+    
+    .filter-select {
+        padding: 0.75rem !important;
+        font-size: 16px !important;
+        border-radius: 6px !important;
+    }
+    
+    .search-btn {
+        padding: 0.875rem !important;
+        font-size: 0.9rem !important;
+        margin-top: 0.5rem !important;
+    }
+    
+    /* Filtros em scroll horizontal */
+    .filter-buttons {
+        display: flex !important;
+        overflow-x: auto !important;
+        gap: 0.5rem !important;
+        padding: 0.5rem 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+    }
+    
+    .filter-btn {
+        flex-shrink: 0 !important;
+        padding: 0.5rem 1rem !important;
+        font-size: 0.8rem !important;
+        border-radius: 20px !important;
+        scroll-snap-align: start !important;
+        min-width: 80px !important;
+        text-align: center !important;
+    }
+}
+
+/* ====================================
+   FOOTER COMPACTO PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    .modern-footer,
+    .footer {
+        margin-top: 1rem !important;
+        padding: 1rem 0.5rem !important;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        text-align: center !important;
+    }
+    
+    .footer-section h4 {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .footer-section ul li {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    
+    .footer-bottom {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        padding-top: 1rem !important;
+        border-top: 1px solid #e5e7eb !important;
+    }
+    
+    .footer-bottom p {
+        font-size: 0.75rem !important;
+        margin: 0 !important;
+    }
+    
+    .footer-links {
+        justify-content: center !important;
+        gap: 1rem !important;
+    }
+    
+    .footer-links a {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* ====================================
+   UTILITÁRIOS PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    /* Margens e espaçamentos reduzidos */
+    .mb-1 { margin-bottom: 0.25rem !important; }
+    .mb-2 { margin-bottom: 0.5rem !important; }
+    .mb-3 { margin-bottom: 0.75rem !important; }
+    .mb-4 { margin-bottom: 1rem !important; }
+    
+    .mt-1 { margin-top: 0.25rem !important; }
+    .mt-2 { margin-top: 0.5rem !important; }
+    .mt-3 { margin-top: 0.75rem !important; }
+    .mt-4 { margin-top: 1rem !important; }
+    
+    .p-1 { padding: 0.25rem !important; }
+    .p-2 { padding: 0.5rem !important; }
+    .p-3 { padding: 0.75rem !important; }
+    .p-4 { padding: 1rem !important; }
+    
+    /* Texto otimizado */
+    .text-sm { font-size: 0.8rem !important; }
+    .text-xs { font-size: 0.7rem !important; }
+    
+    /* Elementos escondidos em portrait */
+    .portrait-hidden {
+        display: none !important;
+    }
+    
+    /* Elementos visíveis apenas em portrait */
+    .portrait-only {
+        display: block !important;
+    }
+}
+
+/* ====================================
+   ANIMAÇÕES OTIMIZADAS PORTRAIT
+   ==================================== */
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+    /* Reduz animações para melhor performance */
+    * {
+        animation-duration: 0.2s !important;
+        transition-duration: 0.2s !important;
+    }
+    
+    /* Remove animações complexas em portrait */
+    .heartbeat-line,
+    .medical-cross-bg,
+    .medical-plus {
+        animation: none !important;
+    }
+    
+    /* Animações de toque otimizadas */
+    .btn:active,
+    .card:active,
+    .module-card:active {
+        transform: scale(0.98) !important;
+        transition: transform 0.1s ease !important;
+    }
+}
+
+/* ====================================
+   CORREÇÕES ESPECÍFICAS iOS PORTRAIT
+   ==================================== */
+
+@supports (-webkit-touch-callout: none) {
+    @media screen and (max-width: 767px) and (orientation: portrait) {
+        /* Correções para Safari iOS */
+        .modal-content {
+            height: 100vh !important;
+            height: -webkit-fill-available !important;
+        }
+        
+        .form-control {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            border-radius: 6px !important;
+        }
+        
+        /* Corrige zoom em campos */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="search"],
+        textarea,
+        select {
+            font-size: 16px !important;
+        }
+        
+        /* Corrige scroll em modais */
+        .modal-body {
+            -webkit-overflow-scrolling: touch !important;
+            overflow-y: scroll !important;
+        }
+    }
+}
