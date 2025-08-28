@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ modulo.titulo }} - Sistema de Gestão Hospitalar</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modulos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modulo.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Header Moderno com mesmo estilo da página de módulos -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <div class="medical-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Sistema Hospitalar</h1>
+                    <span>Gestão Médica Integrada</span>
+                </div>
+            </div>
+
+            <!-- Module Info Section -->
+            <div class="module-info-header">
+                <div class="module-breadcrumb">
+                    <i class="fas fa-home"></i>
+                    <span>Módulos</span>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>{{ modulo.titulo }}</span>
+                </div>
+                <div class="module-title-display">
+                    <i class="{{ modulo.icone }}"></i>
+                    <h2>{{ modulo.titulo }}</h2>
+                </div>
+            </div>
+
+            <!-- User Actions -->
+            <div class="user-actions">
+                <!-- Notifications -->
+                <div class="notification-center">
+                    <button class="notification-btn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+
+                <!-- User Menu -->
+                <div class="user-menu dropdown">
+                    <button class="user-menu-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="user-avatar">
+                            {{ current_user.username[0].upper() }}
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">{{ current_user.nome }}</span>
+                            <span class="user-role">{{ current_user.tipo.capitalize() }}</span>
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu user-dropdown">
+                        <li>
+                            <div class="user-profile-header">
+                                <div class="user-avatar-large">
+                                    {{ current_user.username[0].upper() }}
+                                </div>
+                                <div class="user-details">
+                                    <strong>{{ current_user.nome }}</strong>
+                                    <span>{{ current_user.tipo.capitalize() }}</span>
+                                    <small>{{ current_user.username }}</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="/modulos">
+                                <i class="fas fa-home"></i>
+                                <span>Voltar aos Módulos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sair do Sistema</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Module Actions Bar -->
+    <div class="module-actions-bar">
+        <div class="actions-container">
+            <div class="action-buttons">
+                {% block module_actions %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-copyright">
+                <i class="fas fa-heart text-danger"></i>
+                © 2025 <strong>Anderson</strong> - Todos os direitos reservados.
+            </div>
+            <div class="footer-links">
+                <span>Sistema de Gestão Hospitalar v2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modulos.js') }}"></script>
+    
+    <!-- Module-specific scripts -->
+    {% block scripts %}{% endblock %}
+
+    <!-- Global Functions -->
+    <script>
+        // Função de logout
+        function logout() {
+            if (confirm('Tem certeza que deseja sair do sistema?')) {
+                window.location.href = '/logout';
+            }
+        }
+
+        // Inicialização de tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+</body>
+</html>

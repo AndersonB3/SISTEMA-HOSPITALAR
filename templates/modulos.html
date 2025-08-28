@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão Hospitalar - Módulos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modulos.css') }}">
+    <meta name="description" content="Sistema de Gestão Hospitalar - Acesso aos módulos do sistema">
+    <meta name="theme-color" content="#2c5aa0">
+</head>
+<body>
+    <!-- Fundo animado com efeito médico -->
+    <div class="medical-background">
+        <div class="medical-animation">
+            <div class="heartbeat-line"></div>
+            <div class="medical-cross-bg"></div>
+            <div class="medical-plus"></div>
+        </div>
+    </div>
+
+    <!-- Header moderno -->
+    <header class="modern-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat heartbeat-icon"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>SISTEMA HOSPITALAR</h1>
+                    <span class="version">v3.0</span>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="text" id="moduleSearch" placeholder="Buscar módulo..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                
+                <div class="notifications">
+                    <button class="notification-btn" title="Notificações">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </button>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">{{ current_user.nome }}</span>
+                        <span class="user-role">{{ current_user.tipo.title() }}</span>
+                    </div>
+                    <div class="user-menu">
+                        <button class="menu-toggle" id="userMenuToggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                Meu Perfil
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Configurações
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item logout-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Conteúdo principal -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Painel de boas-vindas -->
+            <div class="welcome-panel">
+                <div class="welcome-content">
+                    <h2>Bem-vindo, {{ current_user.nome }}!</h2>
+                    <p>Selecione um módulo para começar suas atividades no sistema hospitalar</p>
+                </div>
+                <div class="welcome-illustration">
+                    <i class="fas fa-hospital"></i>
+                </div>
+            </div>
+
+            <!-- Grid de módulos por categoria -->
+            <div class="modules-dashboard">
+                <!-- Módulos de Alta Prioridade -->
+                <section class="module-section priority-high-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Módulos Essenciais</h3>
+                        <span class="section-badge">Prioridade Alta</span>
+                    </div>
+                    <div class="modules-grid high-priority">
+                        {% for modulo in modulos %}
+                        {% if current_user.tipo in modulo.permissoes and modulo.id in ['reception', 'risk', 'doctor', 'nurse', 'pharmacy'] %}
+                        <div class="module-card {{ modulo.priority_class }} {{ modulo.status_class }}" 
+                             data-module="{{ modulo.id }}" 
+                             onclick="openModule('{{ modulo.id }}')"
+                             data-search="{{ modulo.titulo.lower() }}">
+                            <div class="module-status">
+                                <div class="status-dot"></div>
+                            </div>
+                            <div class="module-header">
+                                <div class="module-icon">
+                                    <i class="{{ modulo.icone }}"></i>
+                                </div>
+                                <div class="module-badge">
+                                    {% if modulo.id == 'reception' %}Recepção{% endif %}
+                                    {% if modulo.id == 'risk' %}Emergência{% endif %}
+                                    {% if modulo.id == 'doctor' %}Médico{% endif %}
+                                    {% if modulo.id == 'nurse' %}Enfermagem{% endif %}
+                                    {% if modulo.id == 'pharmacy' %}Farmácia{% endif %}
+                                </div>
+                            </div>
+                            <div class="module-content">
+                                <h4>{{ modulo.titulo }}</h4>
+                                <p class="module-description">
+                                    {% if modulo.id == 'reception' %}Gerenciar cadastro e atendimento de pacientes{% endif %}
+                                    {% if modulo.id == 'risk' %}Classificação de risco e triagem{% endif %}
+                                    {% if modulo.id == 'doctor' %}Consultas e atendimento médico{% endif %}
+                                    {% if modulo.id == 'nurse' %}Cuidados de enfermagem e medicação{% endif %}
+                                    {% if modulo.id == 'pharmacy' %}Controle de medicamentos e dispensação{% endif %}
+                                </p>
+                            </div>
+                            <div class="module-footer">
+                                <span class="access-count">
+                                    <i class="fas fa-eye"></i>
+                                    <span id="count-{{ modulo.id }}">--</span> acessos hoje
+                                </span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Módulos de Apoio Médico -->
+                <section class="module-section support-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-briefcase-medical"></i>
+                        </div>
+                        <h3>Serviços de Apoio</h3>
+                        <span class="section-badge">Médio</span>
+                    </div>
+                    <div class="modules-grid support">
+                        {% for modulo in modulos %}
+                        {% if current_user.tipo in modulo.permissoes and modulo.id in ['lab', 'xray', 'nutrition', 'caf'] %}
+                        <div class="module-card {{ modulo.priority_class }} {{ modulo.status_class }}" 
+                             data-module="{{ modulo.id }}" 
+                             onclick="openModule('{{ modulo.id }}')"
+                             data-search="{{ modulo.titulo.lower() }}">
+                            <div class="module-status">
+                                <div class="status-dot"></div>
+                            </div>
+                            <div class="module-header">
+                                <div class="module-icon">
+                                    <i class="{{ modulo.icone }}"></i>
+                                </div>
+                                <div class="module-badge">Apoio</div>
+                            </div>
+                            <div class="module-content">
+                                <h4>{{ modulo.titulo }}</h4>
+                                <p class="module-description">
+                                    {% if modulo.id == 'lab' %}Exames laboratoriais e resultados{% endif %}
+                                    {% if modulo.id == 'xray' %}Exames de imagem e radiologia{% endif %}
+                                    {% if modulo.id == 'nutrition' %}Acompanhamento nutricional{% endif %}
+                                    {% if modulo.id == 'caf' %}Central de Abastecimento Farmacêutico{% endif %}
+                                </p>
+                            </div>
+                            <div class="module-footer">
+                                <span class="access-count">
+                                    <i class="fas fa-eye"></i>
+                                    <span id="count-{{ modulo.id }}">--</span> acessos hoje
+                                </span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Módulos Administrativos -->
+                <section class="module-section admin-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Gestão Administrativa</h3>
+                        <span class="section-badge">Baixo</span>
+                    </div>
+                    <div class="modules-grid admin">
+                        {% for modulo in modulos %}
+                        {% if current_user.tipo in modulo.permissoes and modulo.id in ['inventory', 'purchase', 'finance', 'contracts', 'accounting', 'medical-accounts', 'billing'] %}
+                        <div class="module-card {{ modulo.priority_class }} {{ modulo.status_class }}" 
+                             data-module="{{ modulo.id }}" 
+                             onclick="openModule('{{ modulo.id }}')"
+                             data-search="{{ modulo.titulo.lower() }}">
+                            <div class="module-status">
+                                <div class="status-dot"></div>
+                            </div>
+                            <div class="module-header">
+                                <div class="module-icon">
+                                    <i class="{{ modulo.icone }}"></i>
+                                </div>
+                                <div class="module-badge">Admin</div>
+                            </div>
+                            <div class="module-content">
+                                <h4>{{ modulo.titulo }}</h4>
+                                <p class="module-description">
+                                    {% if modulo.id == 'inventory' %}Controle de estoque e materiais{% endif %}
+                                    {% if modulo.id == 'purchase' %}Gestão de compras e fornecedores{% endif %}
+                                    {% if modulo.id == 'finance' %}Controle financeiro e pagamentos{% endif %}
+                                    {% if modulo.id == 'contracts' %}Gestão de contratos e documentos{% endif %}
+                                    {% if modulo.id == 'accounting' %}Prestação de contas e relatórios{% endif %}
+                                    {% if modulo.id == 'medical-accounts' %}Contas médicas e faturamento{% endif %}
+                                    {% if modulo.id == 'billing' %}Emissão de faturas e cobranças{% endif %}
+                                </p>
+                            </div>
+                            <div class="module-footer">
+                                <span class="access-count">
+                                    <i class="fas fa-eye"></i>
+                                    <span id="count-{{ modulo.id }}">--</span> acessos hoje
+                                </span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Módulos de Suporte -->
+                <section class="module-section it-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Suporte e TI</h3>
+                        <span class="section-badge">Especializado</span>
+                    </div>
+                    <div class="modules-grid it">
+                        {% for modulo in modulos %}
+                        {% if current_user.tipo in modulo.permissoes and modulo.id in ['it'] %}
+                        <div class="module-card {{ modulo.priority_class }} {{ modulo.status_class }}" 
+                             data-module="{{ modulo.id }}" 
+                             onclick="openModule('{{ modulo.id }}')"
+                             data-search="{{ modulo.titulo.lower() }}">
+                            <div class="module-status">
+                                <div class="status-dot"></div>
+                            </div>
+                            <div class="module-header">
+                                <div class="module-icon">
+                                    <i class="{{ modulo.icone }}"></i>
+                                </div>
+                                <div class="module-badge">TI</div>
+                            </div>
+                            <div class="module-content">
+                                <h4>{{ modulo.titulo }}</h4>
+                                <p class="module-description">
+                                    Suporte técnico e infraestrutura
+                                </p>
+                            </div>
+                            <div class="module-footer">
+                                <span class="access-count">
+                                    <i class="fas fa-eye"></i>
+                                    <span id="count-{{ modulo.id }}">--</span> acessos hoje
+                                </span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <!-- Footer moderno -->
+    <footer class="modern-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sistema Hospitalar</h4>
+                    <p>Gestão integrada para instituições de saúde</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#help">Central de Ajuda</a></li>
+                        <li><a href="#docs">Documentação</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Sistema</h4>
+                    <ul>
+                        <li>Versão 3.0.1</li>
+                        <li>Status: <span class="status-online">Online</span></li>
+                        <li>Última atualização: 27/08/2025</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Anderson. Todos os direitos reservados.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacidade</a>
+                    <a href="#terms">Termos</a>
+                    <a href="#security">Segurança</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modulos.js') }}"></script>
+</body>
+</html>

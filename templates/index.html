@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão Hospitalar - Login</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header moderno -->
+    <header class="login-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="medical-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Sistema Hospitalar</h1>
+                    <span>Gestão Integrada de Saúde</span>
+                </div>
+            </div>
+            <div class="header-info">
+                <div class="status-indicator">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Ambiente Seguro</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="login-main-container">
+        <div class="login-background">
+            <!-- Elementos decorativos médicos -->
+            <div class="medical-pattern">
+                <div class="heartbeat-line"></div>
+                <div class="medical-cross-bg"></div>
+                <div class="pulse-circle"></div>
+            </div>
+        </div>
+        
+        <div class="login-content-wrapper">
+            <div class="login-card">
+                <div class="login-card-header">
+                    <div class="welcome-section">
+                        <h2><i class="fas fa-user-md"></i> Acesso ao Sistema</h2>
+                        <p>Entre com suas credenciais para acessar a plataforma</p>
+                    </div>
+                </div>
+                
+                <div class="login-card-body">
+                    <div class="tab-container">
+                        <div class="tabs">
+                            <div class="tab active" onclick="switchTab('login-tab')">
+                                <i class="fas fa-user"></i>
+                                <span>Usuário e Senha</span>
+                            </div>
+                            <div class="tab" onclick="switchTab('certificate-tab')">
+                                <i class="fas fa-certificate"></i>
+                                <span>Certificado Digital</span>
+                            </div>
+                        </div>
+                        
+                        <div id="login-tab" class="tab-content active">
+                            <form id="loginForm" method="POST" action="/login">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                
+                                <div class="form-group">
+                                    <label for="username">
+                                        <i class="fas fa-user"></i>
+                                        Usuário
+                                    </label>
+                                    <input type="text" id="username" name="username" 
+                                           placeholder="Digite seu nome de usuário" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="password">
+                                        <i class="fas fa-lock"></i>
+                                        Senha
+                                    </label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="password" name="password" 
+                                               placeholder="Digite sua senha" required>
+                                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-options">
+                                    <label class="remember-me">
+                                        <input type="checkbox" name="remember">
+                                        <span class="checkmark"></span>
+                                        Lembrar-me
+                                    </label>
+                                    <a href="#" class="forgot-password">Esqueci minha senha</a>
+                                </div>
+                                
+                                <button type="submit" class="login-btn">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Entrar no Sistema
+                                </button>
+                            </form>
+                            
+                            <div id="mensagem" class="message-container"></div>
+                        </div>
+                        
+                        <div id="certificate-tab" class="tab-content">
+                            <div class="certificate-section">
+                                <div class="certificate-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>Utilize seu certificado digital A1 ou A3 para acessar o sistema de forma segura.</p>
+                                </div>
+                                
+                                <button type="button" class="certificate-btn" onclick="selectCertificate()">
+                                    <i class="fas fa-certificate"></i>
+                                    Selecionar Certificado Digital
+                                </button>
+                                
+                                <div id="selected-certificate" class="certificate-selected">
+                                    <p>Certificado selecionado:</p>
+                                    <p id="certificate-info" class="certificate-name"></p>
+                                </div>
+                                
+                                <button type="button" class="login-btn certificate-login" onclick="loginWithCertificate()">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Entrar com Certificado
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="login-card-footer">
+                    <div class="security-info">
+                        <i class="fas fa-lock"></i>
+                        <span>Conexão protegida por SSL</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Informações do sistema -->
+            <div class="system-info">
+                <div class="info-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Gestão de Pacientes</h3>
+                    <p>Cadastro e acompanhamento completo</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Agendamentos</h3>
+                    <p>Controle total da agenda médica</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Relatórios</h3>
+                    <p>Dashboards e análises detalhadas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Painel de ajuda lateral -->
+    <div class="help-panel">
+        <div class="help-trigger" onclick="toggleHelp()">
+            <i class="fas fa-question-circle"></i>
+            <span>Ajuda</span>
+        </div>
+        <div class="help-content" id="helpContent">
+            <div class="help-header">
+                <h3><i class="fas fa-life-ring"></i> Central de Ajuda</h3>
+                <button class="close-help" onclick="toggleHelp()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="help-body">
+                <div class="help-section">
+                    <h4><i class="fas fa-phone"></i> Suporte Técnico</h4>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p><strong>Tel:</strong> (11) 1234-5678</p>
+                    <p><strong>Email:</strong> suporte@hospitalar.com</p>
+                </div>
+                
+                <div class="help-section">
+                    <h4><i class="fas fa-key"></i> Problemas de Acesso</h4>
+                    <ul>
+                        <li>Verifique seu usuário e senha</li>
+                        <li>Certifique-se que o Caps Lock está desabilitado</li>
+                        <li>Entre em contato com o administrador</li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
+                    <h4><i class="fas fa-certificate"></i> Certificado Digital</h4>
+                    <ul>
+                        <li>Verifique se está instalado no navegador</li>
+                        <li>Confirme se está dentro da validade</li>
+                        <li>Reinicie o navegador se necessário</li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
+                    <h4><i class="fas fa-shield-alt"></i> Segurança</h4>
+                    <p>Este sistema utiliza criptografia SSL/TLS para proteger suas informações durante a transmissão.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="login-footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>&copy; 2025 Anderson - Todos os direitos reservados</p>
+            </div>
+            <div class="footer-right">
+                <a href="#" onclick="showPrivacyPolicy()">Política de Privacidade</a>
+                <span>•</span>
+                <a href="#" onclick="showTerms()">Termos de Uso</a>
+                <span>•</span>
+                <span class="version">v2.1.0</span>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/static/js/notifications.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script>
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+            submitBtn.disabled = true;
+            
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('input[name="csrf_token"]').value
+                },
+                body: new URLSearchParams(new FormData(this))
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showMessage('Login realizado com sucesso! Redirecionando...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/modulos';
+                    }, 1500);
+                } else if (data.status === 'pending_2fa') {
+                    showMessage(data.message, 'warning');
+                    // Implementar 2FA modal aqui se necessário
+                } else {
+                    showMessage(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                showMessage('Erro ao realizar login. Verifique sua conexão e tente novamente.', 'error');
+            })
+            .finally(() => {
+                // Restore button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // Switch tabs
+        function switchTab(tabId) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('.toggle-password i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.className = 'fas fa-eye';
+            }
+        }
+
+        // Show messages
+        function showMessage(message, type) {
+            const messageContainer = document.getElementById('mensagem');
+            messageContainer.innerHTML = `
+                <div class="alert alert-${type}">
+                    <i class="fas fa-${getIconForType(type)}"></i>
+                    ${message}
+                </div>
+            `;
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                messageContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        function getIconForType(type) {
+            switch(type) {
+                case 'success': return 'check-circle';
+                case 'error': return 'exclamation-circle';
+                case 'warning': return 'exclamation-triangle';
+                default: return 'info-circle';
+            }
+        }
+
+        // Certificate functions
+        function selectCertificate() {
+            // Simular seleção de certificado
+            document.getElementById('selected-certificate').style.display = 'block';
+            document.getElementById('certificate-info').textContent = 'João Silva - CPF: 123.456.789-00';
+            showMessage('Certificado selecionado com sucesso!', 'success');
+        }
+
+        function loginWithCertificate() {
+            showMessage('Funcionalidade de certificado digital em desenvolvimento.', 'warning');
+        }
+
+        // Help panel
+        function toggleHelp() {
+            const helpContent = document.getElementById('helpContent');
+            helpContent.classList.toggle('active');
+        }
+
+        // Privacy and terms
+        function showPrivacyPolicy() {
+            alert('Política de Privacidade - Em desenvolvimento');
+        }
+
+        function showTerms() {
+            alert('Termos de Uso - Em desenvolvimento');
+        }
+
+        // Animations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on page load
+            const elements = document.querySelectorAll('.login-card, .info-card, .help-trigger');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
